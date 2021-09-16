@@ -1,11 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import Toolbar from './Component/Toolbar'
 
+const colors = [
+  "red", "pink", "green", "black"
+
+]
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        {colors.map((color, idx)=>{
+          return <Toolbar key={idx} color={color} size={{
+            width:"100px",
+            height:"200px"
+          }}/>
+        })}
+        
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
