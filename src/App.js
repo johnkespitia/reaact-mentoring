@@ -1,36 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React , {useState, useEffect} from 'react';
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import Toolbar from './Component/Toolbar'
+import Home from './Screens/Home';
+import User from './Screens/Users';
+import Login from './Screens/Login';
 
-const colors = [
-  "red", "pink", "green", "black"
+import './App.css';
 
-]
+
+
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {colors.map((color, idx)=>{
-          return <Toolbar key={idx} color={color} size={{
-            width:"100px",
-            height:"200px"
-          }}/>
-        })}
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <Toolbar color={"red"} size={{
+              width:"100%",
+              height:"50px"
+            }}/>
+        </header>
+        <Switch>
+          <Route  path="/user/:id">
+            <User />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="*">
+            <h1>404 - Not Found</h1>
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { Link } from 'react-router-dom'
 /*
 class Toolbar extends React.Component{
     constructor(props) {
@@ -37,31 +37,27 @@ class Toolbar extends React.Component{
 const Toolbar = ({color}) => {
     const [date,] = useState(new Date())
     const [name, setName] = useState("Johnk") //flux 
-    const [clicked, setclicked] = useState(0) //flux 
+    //const [clicked, setclicked] = useState(0) //flux 
     const setNameReal = (e) => {
         setName(e.target.value)
     }
-    useEffect(() => {
-        console.log("state Changed first time")
-    },[])
-
-    useEffect(() => {
-        console.log("state Changed clicked var")
-    },[clicked])
-
-    useEffect(() => {
-        console.log("state Changed perpetual")
-    })
     return <div style={{
         backgroundColor: color
     }}>
-            <h1>Hello World  {name} {date.toDateString()} 
-            <input type="text" onChange={setNameReal} /> 
-            </h1>
-            <button onClick={()=>{
-                setclicked(clicked+1)
-            }}>Click me!</button>
-        </div>
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/user">User</Link>
+                </li>
+                <li>
+                    <Link to="/login">Login</Link>
+                </li>
+            </ul>
+        </nav> 
+    </div>
 }
 
 export default Toolbar
