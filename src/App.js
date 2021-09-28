@@ -6,7 +6,6 @@ import Toolbar from './Component/Toolbar'
 import Home from './Screens/Home';
 import User from './Screens/Users';
 import Login from './Screens/Login';
-
 import './App.css';
 
 
@@ -20,7 +19,9 @@ function App() {
           <Toolbar color={"red"} size={{
               width:"100%",
               height:"50px"
-            }}/>
+            }}
+            
+            />
         </header>
         <Switch>
           <Route  path="/user/:id">
