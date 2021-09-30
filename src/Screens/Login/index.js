@@ -1,12 +1,17 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { login } from '../../Redux/UserSlice'
 const Login = (props) => {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
+    const dispatch = useDispatch();
     const SaveUser = (e) =>{
         e.preventDefault()
-        useDispatch({ type: 'LOGIN_USER' , payload: { name, password}})
+        dispatch(login({
+            name,
+            password
+        }))
     }
     return <div>
         <h1>Login</h1>
