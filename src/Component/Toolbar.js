@@ -5,6 +5,10 @@ import styled from 'styled-components'
 import styles from './Toolbar.module.scss'
 import { useSelector } from 'react-redux';
 
+
+import { useDispatch } from 'react-redux'
+import { logout } from '../Redux/UserSlice'
+
 const primaryColor = "#ffa800";
 
 const NavNew = styled(Nav)`
@@ -19,6 +23,12 @@ background-color: ${primaryColor};
 
 const Toolbar = ({color} ) => {
     const user = useSelector(state => state.user.user)
+
+    const dispatch = useDispatch();
+    const doLogout = () =>{        
+        dispatch(logout())
+    }
+
     return <Navbar bg={"dark"} variant={"dark"} fluid={true}>
         <Container fluid={true}>
             <Navbar.Brand as={Link} to="/">Demo App {user?.name}</Navbar.Brand>
@@ -26,6 +36,7 @@ const Toolbar = ({color} ) => {
                 <Nav.Link className={styles.linkHome} as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="/user/1">User</Nav.Link>
                 {!user && <Nav.Link as={Link} to="/Login">Login</Nav.Link>}
+                {user && <Nav.Link onClick={doLogout}>Log Out</Nav.Link>}
             </NavNew>
         </Container>
     </Navbar>
