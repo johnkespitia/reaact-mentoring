@@ -6,6 +6,7 @@ import Toolbar from './Component/Toolbar'
 import Home from './Screens/Home';
 import User from './Screens/Users';
 import Login from './Screens/Login';
+import PokemonScreen from './Screens/Pokemon';
 import './App.css';
 
 
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/pokedex">
+            <PokemonScreen />
           </Route>
           <Route path="*">
             <h1>404 - Not Found</h1>

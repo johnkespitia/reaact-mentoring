@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Redux/UserSlice'
 const Login = (props) => {
+    let history = useHistory();
     const [name, setName] = useState("")
+
     const [password, setPassword] = useState("")
     const dispatch = useDispatch();
     const SaveUser = (e) =>{
@@ -12,6 +15,8 @@ const Login = (props) => {
             name,
             password
         }))
+        history.push('/')
+
     }
     return <div>
         <h1>Login</h1>

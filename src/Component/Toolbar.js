@@ -36,7 +36,10 @@ const Toolbar = ({color} ) => {
                 <Nav.Link className={styles.linkHome} as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="/user/1">User</Nav.Link>
                 {!user && <Nav.Link as={Link} to="/Login">Login</Nav.Link>}
-                {user && <Nav.Link onClick={doLogout}>Log Out</Nav.Link>}
+                {user && <React.Fragment>
+                    <Nav.Link as={Link} to='/pokedex'>Pokedex</Nav.Link>
+                    <Nav.Link onClick={doLogout}>Log Out</Nav.Link>
+                </React.Fragment>}
             </NavNew>
         </Container>
     </Navbar>
