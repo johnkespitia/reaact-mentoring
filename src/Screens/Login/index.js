@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
-import { Form, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form as BForm, Button } from 'react-bootstrap'
+import { Formik , Form} from 'formik'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Redux/UserSlice'
@@ -9,7 +10,7 @@ const Login = (props) => {
 
     const [password, setPassword] = useState("")
     const dispatch = useDispatch();
-    const SaveUser = (e) =>{
+    const SaveUser = (e) => {
         e.preventDefault()
         dispatch(login({
             name,
@@ -20,23 +21,35 @@ const Login = (props) => {
     }
     return <div>
         <h1>Login</h1>
-        <Form onSubmit={SaveUser}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Username</Form.Label>
-                <Form.Control onChange={(e)=>{ setName(e.target.value)}} type="text" placeholder="Username" name="username" />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
+        <Formik
+            initialValues={{}}
+            onSubmit={(values) => {
+                console.log(values)
+            }}
+            onReset={() => {
+                console.log("reseted")
+            }}
+            
+        >
+            <Form>
+                <BForm.Group className="mb-3" controlId="formBasicEmail">
+                    <BForm.Label>Username</BForm.Label>
+                    <BForm.Control type="text" placeholder="Username" name="username" />
+                    <BForm.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                    </BForm.Text>
+                </BForm.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" onChange={(e)=>{ setPassword(e.target.value)}} placeholder="Password" />
-            </Form.Group>
-            <Button variant="primary" type="submit" >
-                Submit
-            </Button>
-        </Form>
+                <BForm.Group className="mb-3" controlId="formBasicPassword">
+                    <BForm.Label>Password</BForm.Label>
+                    <BForm.Control type="password" placeholder="Password" />
+                </BForm.Group>
+                <Button variant="primary" type="submit" >
+                    Submit
+                </Button>
+            </Form>
+
+        </Formik>
     </div>
 }
 
