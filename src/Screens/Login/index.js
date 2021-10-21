@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form as BForm, Button } from 'react-bootstrap'
-import { Formik , Form} from 'formik'
+import { Formik , Form, Field, ErrorMessage} from 'formik'
+import * as Yup from 'yup'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from '../../Redux/UserSlice'
@@ -12,6 +13,7 @@ const Login = (props) => {
     const dispatch = useDispatch();
     const SaveUser = (e) => {
         e.preventDefault()
+        
         dispatch(login({
             name,
             password
@@ -19,35 +21,51 @@ const Login = (props) => {
         history.push('/')
 
     }
+    
     return <div>
         <h1>Login</h1>
         <Formik
-            initialValues={{}}
+            initialValues={{
+                password: "1234567890",
+                username: "",
+            }}
             onSubmit={(values) => {
                 console.log(values)
             }}
             onReset={() => {
                 console.log("reseted")
             }}
+            validationSchema={Yup.object().shape({
+                password: Yup.string().required("This filed is empty, please complete it"),
+                username: Yup.string().email("No, This is not an email").required("This filed is empty, please complete it"),
+            })}
             
         >
-            <Form>
+            {({errors, touched, isSubmitting, isValid})=>(
+                <Form>
+                    
                 <BForm.Group className="mb-3" controlId="formBasicEmail">
                     <BForm.Label>Username</BForm.Label>
-                    <BForm.Control type="text" placeholder="Username" name="username" />
+                    <Field style={{
+                        borderColor: (errors.username && touched.username)?"red":"green"
+                    }} type="text" placeholder="Username" name="username" />
                     <BForm.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </BForm.Text>
+                    <ErrorMessage name="username" />
                 </BForm.Group>
 
                 <BForm.Group className="mb-3" controlId="formBasicPassword">
                     <BForm.Label>Password</BForm.Label>
-                    <BForm.Control type="password" placeholder="Password" />
+                    <Field type="password" name="password" placeholder="Password" />
+                    <ErrorMessage name="password" />
+
                 </BForm.Group>
-                <Button variant="primary" type="submit" >
+                <Button disabled={isSubmitting} variant="primary" type="submit" >
                     Submit
                 </Button>
             </Form>
+            )}
 
         </Formik>
     </div>
