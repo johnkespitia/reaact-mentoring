@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form as BForm, Button } from 'react-bootstrap'
+import { Form as BForm, Button, Alert } from 'react-bootstrap'
 import { Formik , Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import { useHistory } from 'react-router-dom'
@@ -29,8 +29,18 @@ const Login = (props) => {
                 password: "1234567890",
                 username: "",
             }}
-            onSubmit={(values) => {
+            onSubmit={(values, actions) => {
                 console.log(values)
+                setTimeout(()=>{
+                    actions.setSubmitting(false);
+                    actions.resetForm({
+                        values: {
+                            username:"empty"
+                        }
+                    }
+                    )
+                }, 4000)
+                
             }}
             onReset={() => {
                 console.log("reseted")
@@ -43,7 +53,7 @@ const Login = (props) => {
         >
             {({errors, touched, isSubmitting, isValid})=>(
                 <Form>
-                    
+                    {isValid && isSubmitting && <Alert variant="success">We are sending your information!</Alert>}
                 <BForm.Group className="mb-3" controlId="formBasicEmail">
                     <BForm.Label>Username</BForm.Label>
                     <Field style={{
