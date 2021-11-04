@@ -29,7 +29,7 @@ const Toolbar = ({color} ) => {
         dispatch(logout())
     }
 
-    return <Navbar bg={"dark"} variant={"dark"} fluid={true}>
+    return <Navbar bg={"dark"} variant={"dark"} fluid>
         <Container fluid={true}>
             <Navbar.Brand as={Link} to="/">Demo App {user?.name}</Navbar.Brand>
             <NavNew>
